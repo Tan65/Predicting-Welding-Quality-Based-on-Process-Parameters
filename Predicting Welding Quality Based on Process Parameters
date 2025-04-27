@@ -1,0 +1,23 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import classification_report
+
+# Load the welding dataset (replace with actual data)
+url = "https://example.com/welding_data.csv"
+data = pd.read_csv(url)
+
+# Features and target
+X = data[['WeldingSpeed', 'Voltage', 'Current', 'MaterialThickness']]  # Features
+y = data['WeldQuality']  # Target: Quality of the weld (e.g., good/bad)
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train a Decision Tree Classifier
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+# Predictions and Evaluation
+y_pred = model.predict(X_test)
+print(classification_report(y_test, y_pred))
